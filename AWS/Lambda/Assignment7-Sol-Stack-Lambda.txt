@@ -1,0 +1,69 @@
+Description:  This template triggers a lambda function that copies the uploaded file from (init-s3-lambda-trigger-bucket) to another bucket (sol-s3-lambda-trigger-bucket) and send a log to cloud watch (create the 2 buckets first on AWS then upload manually a file to the init bucket)
+
+
+Resources:
+  testFunc:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: index.handler
+      Role: arn:aws:iam::114976728299:role/cloudwatch-role
+      Code:
+        ZipFile:
+          Fn::Join:
+            - |+
+
+            - - exports.handler = function(event, context) {
+                  - '
+                    import json
+                    import boto3
+                    import botocore
+                    from botocore.exceptions import ClientError
+                    import time
+                            
+                    
+                    def lambda_handler(event, context):
+                        #1. Copy the file that beeing uploaded to another bucket
+                        #2. Send a log to Cloudwatch log
+                    
+                        init_bucket_name = 'init-s3-lambda-trigger-bucket'
+                        sol_bucket_name = 'sol-s3-lambda-trigger-bucket'
+                        file_name = 'sample.txt'
+                    
+                        s3 = boto3.resource('s3')
+                        copy_source = {
+                            'Bucket': init_bucket_name,
+                            'Key': file_name
+                        }
+                        response = s3.meta.client.copy(copy_source, sol_bucket_name, file_name)
+                    
+                        if response is None:
+                            message = 'The file was succuessfully uploaded to the other bucket.'
+                        else:
+                           message = 'The file was failed to uploaded to the other bucket.'
+                            
+                        #send log to cloudwatch
+                        client = boto3.client('logs')
+                        
+                        # log_create_response = client.create_log_stream(
+                        # logGroupName='/aws/lambda/testS3Func',
+                        # logStreamName='s3StreamLogs'
+                        # )
+                    
+                        
+                        log_response = client.put_log_events(
+                            logGroupName='/aws/lambda/testS3Func',
+                            logStreamName='s3StreamLogs',
+                            logEvents=[
+                                {
+                                    'timestamp': int(round(time.time() * 1000)),
+                                    'message': message 
+                                },
+                            ],
+                            sequenceToken='1111')
+                            
+                        
+                        return {
+                            'statusCode': 200,
+                            'body': json.dumps('Finish executing lambda function')
+                        } '
+      Runtime: python3.8
