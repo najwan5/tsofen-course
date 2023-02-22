@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    restart: always
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+#       - 50000:50000
+    container_name: jenkins-new
+    volumes:
+      - ./jenkins_data3:/var/jenkins_home
+      - /run/containerd/containerd.sock:/var/run/docker.sock
