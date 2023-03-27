@@ -19,20 +19,19 @@ Jenkins <br />
 
  <br />
  <br />
-Step1 -
-Upload text files to S3 bucket.
-Lambda function will be triggered to send messages to SQS-queue with resource details(the name of the file, bucket, ...) once files are uploaded
-
+Step1  <br />
+Upload text files to S3 bucket. <br />
+Lambda function will be triggered to send messages to SQS-queue with resource details(the name of the file, bucket, ...)  <br />Once files are uploaded
 EC2 containers will handle the message(as JSON): to identify and download the files from S3 to the ec2 and to convert these files from txt to pdf 
 EC2s will read messages from SQS using boto3 and convert the files using python script on docker image
-Build a docker image - based on python - (Dockerfile) with FPDF,boto3, git, python script,... 
-push image to docker hub
-docker build image and run this container (on local)
+Build a docker image - based on python - (Dockerfile) with FPDF,boto3, git, python script,...  <br />
+push image to docker hub <br />
+docker build image and run this container (on local) <br />
 
-
-
+ <br />
 Step2 - IaC (Terraform)
 Create a terraform file that builds the above
 
+<br />
 Step3 - CI/CD (Jenkins) - Optional
 A Jenkins pipeline will be build when commiting and pushing a new change to the image 
