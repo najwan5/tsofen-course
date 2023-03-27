@@ -1,24 +1,24 @@
-Notes:--
-You must specify the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY inside final.tf in the docker run command.--
-The public key (demokey) is created on linux machine back then(id_rsa.pub), you need to create a new pair using ssh-keygen-- 
-You must git clone the folder and cd to where final.tf is located then run:--
-  terraform init--
-  terraform apply--
-  terraform destroy when finishing--
+Notes: <br />
+You must specify the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY inside final.tf in the docker run command. <br />
+The public key (demokey) is created on linux machine back then(id_rsa.pub), you need to create a new pair using ssh-keygen <br />
+You must git clone the folder and cd to where final.tf is located then run: <br />
+  terraform init <br />
+  terraform apply <br />
+  terraform destroy when finishing <br />
 	
---
---
-Description:--
-Upload text files to S3 buckets and convert them to PDFs on AWS EC2 using the  following technologies: --
+ <br />
+ <br />
+Description <br />
+Upload text files to S3 buckets and convert them to PDFs on AWS EC2 using the  following technologies:  <br />
 
-Docker Container --
-Python - boto3
-AWS Services: S3; Lambda; SQS; EC2, Cloudwatch,  (SNS for email notification - Optional)--
-IaC - terraform--
-Jenkins--
+Docker Container  <br />
+Python - boto3 <br />
+AWS Services: S3; Lambda; SQS; EC2, Cloudwatch,  (SNS for email notification - Optional) <br />
+IaC - terraform <br />
+Jenkins <br />
 
---
---
+ <br />
+ <br />
 Step1 -
 Upload text files to S3 bucket.
 Lambda function will be triggered to send messages to SQS-queue with resource details(the name of the file, bucket, ...) once files are uploaded
