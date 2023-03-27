@@ -1,3 +1,11 @@
+Notes:
+1. You must specify the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY inside final.tf in the docker run command.
+2. The public key (demokey) is created on linux machine back then(id_rsa.pub), you need to create a new pair using ssh-keygen 
+2. You must git clone the folder and cd to where final.tf is located then run:
+	2.1 terraform init
+	2.2 terraform apply
+	3.3 terraform destroy when finishing
+	
 Description:
 Upload text files to S3 buckets and convert them to PDFs on AWS EC2 using the  following technologies: 
 
@@ -7,13 +15,6 @@ AWS Services: S3; Lambda; SQS; EC2, Cloudwatch,  (SNS for email notification - O
 IaC - terraform
 Jenkins
 
-Notes:
-1. You must specify the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY inside final.tf in the docker run command.
-2. The public key (demokey) is created on linux machine back then(id_rsa.pub), you need to create a new pair using ssh-keygen 
-2. You must git clone the folder and cd to where final.tf is located then run:
-	2.1 terraform init
-	2.2 terraform apply
-	3.3 terraform destroy when finishing
 Step1 -
 Upload text files to S3 bucket.
 Lambda function will be triggered to send messages to SQS-queue with resource details(the name of the file, bucket, ...) once files are uploaded
