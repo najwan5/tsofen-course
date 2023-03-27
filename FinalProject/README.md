@@ -10,7 +10,7 @@ You must git clone the folder and cd to where final.tf is located then run:
 Description:
 Upload text files to S3 buckets and convert them to PDFs on AWS EC2 using the  following technologies: 
 
-Docker Container
+Docker Container '\n'
 Python - boto3
 AWS Services: S3; Lambda; SQS; EC2, Cloudwatch,  (SNS for email notification - Optional) 
 IaC - terraform
